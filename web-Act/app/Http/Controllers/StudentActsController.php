@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentActs;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 
 class StudentActsController extends Controller
@@ -23,6 +24,7 @@ class StudentActsController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -31,6 +33,22 @@ class StudentActsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|max:30',
+            'email' => 'required|email',
+            'age' => 'required|numeric|min:1|max:100'
+    ]);
+
+    $addNew = new StudentActs();
+    $addNew->name = $request->name;
+    $addNew->email = $request->email;
+    $addNew->age = $request->age;
+    $addNew->save();
+
+        
+    return back()->with('message', 'A new Student added successfully!');
+
+ 
     }
 
     /**

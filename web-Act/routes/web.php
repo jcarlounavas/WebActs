@@ -8,3 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/studs', [StudentActsController::class, 'index'])->name('studs');
+Route::get('/register', function () {
+    return view('Components.register');
+});
+Route::post('/create', [StudentActsController::class, 'store'])->name('store');
