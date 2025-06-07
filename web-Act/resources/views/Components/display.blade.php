@@ -39,6 +39,29 @@
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
+
+        .action-buttons a, .action-buttons form {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .action-buttons button, .action-buttons a {
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+
+        .edit-btn {
+            background-color: #ffc107;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -49,17 +72,28 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Age</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($studs as $studAct)
                 <tr>
+                    <td>{{ $studAct->id }}</td>
                     <td>{{ $studAct->name }}</td>
                     <td>{{ $studAct->email }}</td>
                     <td>{{ $studAct->age }}</td>
+                    <td class="action-buttons">
+                        <a href="/editing-page/{{$studAct['id']}}" class="edit-btn">Edit</a>
+                        <form action="/editing-page/{{$studAct['id']}}" method="POST" onsubmit="return confirm('Are you sure?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 </body>
 </html>
+

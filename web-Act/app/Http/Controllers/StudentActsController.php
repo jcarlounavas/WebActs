@@ -62,7 +62,7 @@ class StudentActsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StudentActs $studentActs)
+    public function edit(Request $request, $id)
     {
         //
     }
@@ -70,9 +70,21 @@ class StudentActsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StudentActs $studentActs)
+    public function update(Request $request, StudentActs $studentActs, $id)
     {
         //
+        $studs = StudentActs::find($id);
+        $request->validate([
+            'name' => 'required|max:30',
+            'email' => 'required|email',
+            'age' => 'required|numeric|min:1|max:100'
+        ]);
+        $studs->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'age' => $request->age
+        ]);
+        return redirect()->route('studs')->with('message', 'Student updated successfully!');
     }
 
     /**
@@ -80,6 +92,8 @@ class StudentActsController extends Controller
      */
     public function destroy(StudentActs $studentActs)
     {
-        //
+    $studentActs->delete();
+    
+    return redirect()->back()->with('message', 'Student deleted successfully!');
     }
 }
