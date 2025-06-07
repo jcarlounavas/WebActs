@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\StudentUser;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\StudentActs;
-use Illuminate\Support\Facades\Hash;
 
-
-class StudActivityUserSeeder extends Seeder
+class StudentUsers extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,12 +14,9 @@ class StudActivityUserSeeder extends Seeder
     public function run(): void
     {
         //
-        StudentActs::create([
-            'name' => 'navs',
+        StudentUser::create([
+            'name' => 'Navs',
             'email' => 'navs@gmail.com',
-            'age' => 20,
-            'password' => Hash::make('password123')]);
-
-
+            'age' => 20]);
     }
 }
