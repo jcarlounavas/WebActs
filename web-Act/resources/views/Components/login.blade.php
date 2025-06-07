@@ -103,7 +103,7 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-        <a href="" class="">Don't have an account?</a>
+        <a href="/register" class="">Don't have an account?</a>
         <a href="" class="forgot-password">Forgot Password?</a>   
 
       <button type="submit">Log In</button>

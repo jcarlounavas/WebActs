@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Hash;
+use App\Models\StudentUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -26,14 +29,24 @@ class Authen extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request)
+    public function register(Request $request)
     {
-        Auth::logout();
 
-        $request->session()->invalidate();
+        $users = StudentUser::all();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:table_studentusers,email',
+            'age' => 'required|integer|min:1',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
-        $request->session()->regenerateToken();
+        StudentUser::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'age' => $request->age,
+            'password' => Hash::make($request->password),
+        ]);
 
-        return redirect('/login');
+        return redirect()->route('login')->with('message', 'Registration successful! Please log in.');
     }
 }

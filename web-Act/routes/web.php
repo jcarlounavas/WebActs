@@ -44,3 +44,9 @@ Route::post('/logout', [App\Http\Controllers\Authen::class, 'logout'])->name('lo
 
 
 
+//Registration for Users
+Route::get('/register', function () {
+    return view('Components.registration');
+})->name('register');
+
+Route::post('/register', [App\Http\Controllers\Authen::class, 'register'])->name('register.post');
